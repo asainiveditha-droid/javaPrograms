@@ -1,0 +1,44 @@
+class CurrentAccount extends Account {
+
+    double overdraftLimit;
+
+    // Constructor
+    CurrentAccount(int accountNumber, String name,
+                   double balance, double overdraftLimit) {
+
+        super(accountNumber, name, balance, "Current");
+        this.overdraftLimit = overdraftLimit;
+    }
+
+    // Withdraw method overriding
+    @Override
+    void withdraw(double amount) {
+
+        if (balance - amount >= -overdraftLimit) {
+            balance = balance - amount;
+            System.out.println("Withdrawn: " + amount);
+        } else {
+            System.out.println("Overdraft limit exceeded");
+        }
+    }
+
+    // Main Method
+    public static void main(String[] args) {
+
+        CurrentAccount c =
+            new CurrentAccount(102, "Niveditha", 5000, 2000);
+
+        System.out.println("----- CURRENT ACCOUNT -----");
+
+        c.displayAccountDetails();
+
+        System.out.println("\n----- TRANSACTIONS -----");
+
+        c.deposit(2000);
+        c.withdraw(6000);
+
+        System.out.println("\n----- FINAL DETAILS -----");
+
+        c.displayAccountDetails();
+    }
+}

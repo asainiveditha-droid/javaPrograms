@@ -1,0 +1,43 @@
+class SavingsAccount extends Account {
+
+    double interestRate;
+
+    // Constructor
+    SavingsAccount(int accountNumber, String name,
+                   double balance, double interestRate) {
+
+        super(accountNumber, name, balance, "Savings");
+        this.interestRate = interestRate;
+    }
+
+    // Calculate Interest
+    void calculateInterest() {
+
+        double interest = balance * interestRate / 100;
+        balance = balance + interest;
+
+        System.out.println("Interest: " + interest);
+        System.out.println("Balance after interest: " + balance);
+    }
+
+    // Main Method
+    public static void main(String[] args) {
+
+        SavingsAccount s =
+            new SavingsAccount(101, "Sai", 10000, 5);
+
+        System.out.println("----- SAVINGS ACCOUNT -----");
+
+        s.displayAccountDetails();
+
+        System.out.println("\n----- TRANSACTIONS -----");
+
+        s.deposit(2000);
+        s.withdraw(1000);
+        s.calculateInterest();
+
+        System.out.println("\n----- FINAL DETAILS -----");
+
+        s.displayAccountDetails();
+    }
+}

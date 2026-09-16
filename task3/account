@@ -1,0 +1,86 @@
+class Account {
+    int accountNumber;
+    String accountHolderName;
+    double balance;
+    String accountType;
+
+    // Constructor
+    Account(int accountNumber, String name, double balance,
+            String accountType) {
+        this.accountNumber = accountNumber;
+        this.accountHolderName = name;
+        this.balance = balance;
+        this.accountType = accountType;
+    }
+
+    // Deposit
+    void deposit(double amount) {
+        balance = balance + amount;
+        System.out.println("Deposited: " + amount);
+    }
+
+    // Withdraw
+    void withdraw(double amount) {
+        if (balance >= amount) {
+            balance = balance - amount;
+            System.out.println("Withdrawn: " + amount);
+        } else {
+            System.out.println("Insufficient balance");
+        }
+    }
+
+    // Transfer
+    void transfer(Account receiver, double amount) {
+        if (balance >= amount) {
+            balance = balance - amount;
+            receiver.balance = receiver.balance + amount;
+            System.out.println("Transferred: " + amount);
+        } else {
+            System.out.println("Insufficient balance");
+        }
+    }
+
+    // Display
+    void displayAccountDetails() {
+        System.out.println("Account Number: " + accountNumber);
+        System.out.println("Account Holder: " + accountHolderName);
+        System.out.println("Account Type: " + accountType);
+        System.out.println("Balance: " + balance);
+    }
+
+    // MAIN METHOD
+    public static void main(String[] args) {
+
+        // Create Savings Account object
+        SavingsAccount s =
+            new SavingsAccount(101, "Sai", 10000, 5);
+
+        // Create Current Account object
+        CurrentAccount c =
+            new CurrentAccount(102, "Niveditha", 5000, 2000);
+
+        System.out.println("----- BEFORE TRANSACTIONS -----");
+
+        s.displayAccountDetails();
+        System.out.println();
+
+        c.displayAccountDetails();
+
+        System.out.println("\n----- TRANSACTIONS -----");
+
+        s.deposit(2000);
+        s.withdraw(1000);
+        s.calculateInterest();
+
+        c.withdraw(6000);
+
+        s.transfer(c, 2000);
+
+        System.out.println("\n----- FINAL DETAILS -----");
+
+        s.displayAccountDetails();
+        System.out.println();
+
+        c.displayAccountDetails();
+    }
+}
